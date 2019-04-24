@@ -1,8 +1,8 @@
 #!/usr/bin/env python3.7
 
 import sys
-from qtileactionmenu import ActionMenu
+from qtileactionmenu import ActionMenuApp
 
 def main():
-    app = ActionMenu()
+    app = ActionMenuApp()
     app.run(sys.argv)

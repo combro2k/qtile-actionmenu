@@ -100,7 +100,7 @@ class ActionMenuWindow(Gtk.ApplicationWindow):
         Popen(['sh', '-c', f'sleep 2 && /usr/bin/systemctl poweroff'], shell=False)
         self.destroy()
 
-class ActionMenu(Gtk.Application):
+class ActionMenuApp(Gtk.Application):
     
     _qtile = None
 
@@ -124,5 +124,5 @@ class ActionMenu(Gtk.Application):
         return self._qtile
 
 if __name__ == '__main__':
-    app = ActionMenu()
+    app = ActionMenuApp()
     app.run(sys.argv)
