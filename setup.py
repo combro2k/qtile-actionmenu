@@ -12,6 +12,6 @@ setup(
         'console_scripts': ['qtile-actionmenu=qtileactionmenu.actionmenu:main'],
     },
     install_requires=[
-        'qtile'                                                                                                                                                     
+        'qtile'
     ],
 )
