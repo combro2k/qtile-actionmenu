@@ -4,12 +4,14 @@ import gi
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gio, Gtk, Gdk
 
-from libqtile.command import Client
+from libqtile.command_interface import CommandInterface, IPCCommandInterface
+from libqtile.command_client import CommandClient
+from libqtile.ipc import Client, find_sockfile
 
 from subprocess import Popen
 
 class ActionMenuWindow(Gtk.ApplicationWindow):
-    
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
@@ -38,7 +40,7 @@ class ActionMenuWindow(Gtk.ApplicationWindow):
         self.add(self.vbox)
 
         super().present()
-      
+
     """
         GTK3 Create buton helper
     """
@@ -82,7 +84,7 @@ class ActionMenuWindow(Gtk.ApplicationWindow):
 
     def logout(self, button):
         try:
-            self.application.qtile.shutdown()
+            self.application.qtile.call('shutdown')()
         except Exception as v:
             print(v)
 
@@ -101,7 +103,7 @@ class ActionMenuWindow(Gtk.ApplicationWindow):
         self.destroy()
 
 class ActionMenuApp(Gtk.Application):
-    
+
     _qtile = None
 
     def __init__(self, qtile=None):
@@ -119,7 +121,7 @@ class ActionMenuApp(Gtk.Application):
     @property
     def qtile(self):
         if self._qtile is None:
-            self._qtile = Client()
+            self._qtile = CommandClient(command=IPCCommandInterface(Client(find_sockfile())))
 
         return self._qtile
 
